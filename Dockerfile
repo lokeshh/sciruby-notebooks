@@ -1,16 +1,18 @@
-FROM andrewosh/binder-base
-
-MAINTAINER Kozo Nishida <knishida@riken.jp>
+FROM jupyter/base-notebook:latest
 
 USER root
 
-# Add ecell4 dependencies
-RUN apt-get update
-RUN apt-get install -y build-essential ruby ruby-dev libzmq3 libzmq3-dev gnuplot-nox libgsl0-dev libtool autoconf automake zlib1g-dev libsqlite3-dev libmagick++-dev imagemagick libatlas-base-dev && apt-get clean
-RUN ln -s /usr/bin/libtoolize /usr/bin/libtool # See https://github.com/zeromq/libzmq/issues/1385
+RUN apt-get update && \
+    apt-get install -y build-essential \
+        ruby2.5 ruby2.5-dev libzmq3-dev gnuplot-nox libgsl-dev libtool autoconf make \
+        automake zlib1g-dev libsqlite3-dev libmagick++-dev imagemagick \
+        libatlas-base-dev g++ && \
+        apt-get clean
 
-RUN gem update --no-document --system && gem install --no-document sciruby-full
 
-USER main
+RUN gem install daru nmatrix statsample iruby
+# RUN gem update --no-document --system && gem install --no-document sciruby-full
+
+USER $NB_UID
 
 RUN iruby register
