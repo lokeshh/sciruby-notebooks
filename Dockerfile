@@ -16,3 +16,5 @@ RUN gem install daru nmatrix statsample iruby
 USER $NB_UID
 
 RUN iruby register
+
+COPY . .
