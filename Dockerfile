@@ -10,11 +10,11 @@ RUN apt-get update && \
         apt-get clean
 
 
-RUN gem install daru nmatrix statsample iruby
+RUN gem install daru nmatrix statsample cztop iruby 
 # RUN gem update --no-document --system && gem install --no-document sciruby-full
 
 USER $NB_UID
 
-RUN iruby register
+RUN iruby register --force
 
 COPY . .
