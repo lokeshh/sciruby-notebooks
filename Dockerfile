@@ -9,8 +9,9 @@ RUN apt-get update && \
         libatlas-base-dev g++ libczmq-dev libffi-dev libtool-bin && \
         apt-get clean
 
+# See https://github.com/methodmissing/rbczmq/issues/64
 RUN CPPFLAGS='-Wno-error=deprecated-declarations' gem install rbczmq -v '1.7.9'
-RUN gem install daru nmatrix statsample cztop iruby 
+RUN gem install daru nmatrix cztop iruby symengine
 # RUN gem update --no-document --system && gem install --no-document sciruby-full
 
 USER $NB_UID
